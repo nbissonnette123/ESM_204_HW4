@@ -40,4 +40,14 @@ ggplot() +
   xlab('year') +
   ylab('damage')
 ```
+Now we will need to find the quadratic function for the damages curve
+
+```{r}
+#Make the x variable exponential 
+year2 <- Time^2
+
+quadratic.model <-lm(Counts ~ Time + Time2)
+
+summary(quadratic.model)
+```
 
