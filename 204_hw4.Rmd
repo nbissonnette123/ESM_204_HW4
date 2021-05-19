@@ -16,6 +16,28 @@ Q1.
 ```{r}
 damages_data <- read_csv(here("data", "damages.csv")) %>% clean_names()
 
-warming_data <- read_csv(here("data", "damages.csv")) %>% clean_names()
+warming_data <- read_csv(here("data", "warming.csv")) %>% clean_names()
+
+#explore the data
+ggplot(data = damages_data, aes(x = warming, y = damages))+
+  geom_point()+
+  theme_bw()
+
+
+```
+
+```{r}
+#new viz approach
+# plot baseline
+ggplot() + 
+  geom_point(data = warming_data, aes(x = year, y = warming_baseline), color = "red")+
+  xlab('year') +
+  ylab('damage')
+
+#plot pulse
+ggplot() + 
+  geom_point(data = warming_data, aes(x = year, y = warming_pulse), color = "blue") +
+  xlab('year') +
+  ylab('damage')
 ```
 
