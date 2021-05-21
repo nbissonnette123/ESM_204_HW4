@@ -43,11 +43,39 @@ ggplot() +
 Now we will need to find the quadratic function for the damages curve
 
 ```{r}
+
+#first I will start with a linear model
+
+lm_damages <- lm(formula = damages ~ warming, data = damages_data)
+summary(lm_damages)
+
+Call:
+lm
+
+
+```
+
+```{r}
 #Make the x variable exponential 
-year2 <- Time^2
+damages_data$warming2 <- damages_data$warming^2
 
-quadratic.model <-lm(Counts ~ Time + Time2)
+quadratic_model <-lm(damages ~ warming + warming2, data = damages_data)
 
-summary(quadratic.model)
+summary(quadratic_model)
+```
+```{r}
+# Now try and visualize the quadratic function fit
+#create sequence of warming values 
+warming_values <- seq(1, 6, 10)
+
+#create list of predicted damages levels 
+damages_predict <- predict(quadratic_model,list(warming=warming_values, warming2=warming_values^2))
+
+#create scatterplot
+plot(damages_data$warming, damages_data$damages, pch=16)
+
+#add predicted ilnes based on quadratic regression model 
+lines(warming_values, damages_predict, col= 'blue')
+
 ```
 
